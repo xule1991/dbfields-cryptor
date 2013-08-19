@@ -1,6 +1,5 @@
 package org.n3r.sensitive.proxy;
 
-import org.n3r.core.security.AesCryptor;
 import org.n3r.sensitive.parser.SensitiveFieldsParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,13 +38,13 @@ class PreparedStmtHandler implements InvocationHandler {
 
         if (ProxyMethods.isGetResult(method.getName())
                 && parser.getSecuretResultIndice().size() > 0) {
-            result = new ResultSetHandler((ResultSet) result, parser, cryptor).getResultSet();
+            result = new ResultSetHandler((ResultSet) result, parser, cryptor).createResultSetProxy();
         }
 
         return result;
     }
 
-    public PreparedStatement getStatement() {
+    public PreparedStatement createPreparedStatementProxy() {
         return (PreparedStatement) Proxy.newProxyInstance(getClass().getClassLoader(),
                 new Class<?>[]{PreparedStatement.class}, this);
     }

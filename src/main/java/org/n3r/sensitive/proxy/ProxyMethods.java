@@ -7,7 +7,7 @@ import com.google.common.collect.Sets;
 public class ProxyMethods {
     private static final Set<String> REQUIRED_ENCRYPT_METHODS = Sets.newHashSet("setString", "setObject");
     private static final Set<String> REQUIRED_DECRYPT_METHODS = Sets.newHashSet("getString", "getObject");
-    private static final Set<String> RETURN_RESULTSET_METHODS = Sets.newHashSet("executeQuery", "getResultSet");
+    private static final Set<String> RETURN_RESULTSET_METHODS = Sets.newHashSet("executeQuery", "createResultSetProxy");
 
     public static boolean requireEncrypt(String method) {
         return REQUIRED_ENCRYPT_METHODS.contains(method);

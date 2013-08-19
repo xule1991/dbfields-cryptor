@@ -37,7 +37,7 @@ public class ResultSetHandler implements InvocationHandler {
         return result;
     }
 
-    public ResultSet getResultSet() {
+    public ResultSet createResultSetProxy() {
         return (ResultSet) Proxy.newProxyInstance(getClass().getClassLoader(),
                 new Class<?>[]{ResultSet.class}, this);
     }

@@ -27,19 +27,19 @@ public class ConnectionHandler implements InvocationHandler {
             SensitiveFieldsParser parser = CacheUtil.getParser(sql);
             if (!parser.haveSecureFields()) return invoke;
 
-            return new PreparedStmtHandler((PreparedStatement) invoke, parser, cryptor).getStatement();
+            return new PreparedStmtHandler((PreparedStatement) invoke, parser, cryptor).createPreparedStatementProxy();
         } else if ("prepareCall".equals(method.getName())) {
             String sql = (String) args[0];
             SensitiveFieldsParser parser = CacheUtil.getParser(sql);
             if (!parser.haveSecureFields()) return invoke;
 
-            return new CallableStmtHandler((CallableStatement) invoke, parser, cryptor).getStatement();
+            return new CallableStmtHandler((CallableStatement) invoke, parser, cryptor).createCallableStatement();
         }
 
         return invoke;
     }
 
-    public Connection getConnection() {
+    public Connection createConnectionProxy() {
         return (Connection) Proxy.newProxyInstance(getClass().getClassLoader(),
                 new Class<?>[]{Connection.class}, this);
     }

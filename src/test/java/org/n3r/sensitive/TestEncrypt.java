@@ -32,7 +32,7 @@ public class TestEncrypt {
 
         try {
             Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            CONNECTION = new ConnectionHandler(connection, cryptor).getConnection();
+            CONNECTION = new ConnectionHandler(connection, cryptor).createConnectionProxy();
         } catch (SQLException e) {
             throw new RuntimeException(
                     "Connection Failed! Check output console.", e);
